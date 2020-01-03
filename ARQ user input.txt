@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <stdlib.h>
+void stopandwait(){
+        int f, n, i, x = 0;
+    printf("Enter the number of frames: ");
+    scanf("%d", &f);
+    for (i = 1;; i++) {
+        printf("\nEnter the frame number received: ");
+        scanf("%d", &n);
+        if (n == x + 1) {
+            printf("Acknowledgment for frame %d received", x + 1);
+            x++;
+        } else
+            printf("Negative Acknowledgment!");
+        if (x == f) {
+            printf("\nData received");
+            break;
+        }
+    }
+}
+void goback(){
+    int i, windowsize,sent=0,ack;
+    printf("enter the window size");
+    scanf("%d",&windowsize); 
+    while (1){
+        for(i=0;i=windowsize+1;i++){
+            printf("Frame %d has been transmitted\n",sent);
+            sent++;
+            if (sent==windowsize)
+                break;
+        }
+        printf("\nEnter the Acknowledgement received.\n");
+        scanf("%d",&ack);
+        if(ack==windowsize){
+            printf("frame transmitted");
+            break;}
+        else
+            printf("retransmit frames from %d \n ",ack);
+        sent=ack;    
+    }   
+}
+void selectiverepeat(){
+   int i=1,n,n1,n2,j,m;
+                printf("\n enter the number of frames to be sent : ");
+                scanf("%d",&n);
+                printf("\n enter the size of the window: ");
+                scanf("%d",&n1);
+                printf("do all the frames are successfully transmitted : 0(no) 1(yes)");
+                scanf("%d",&m);
+                if(m==1)
+                    {
+                    while(i<=n)
+                    {
+                        printf("\n enter the frames for which acknowledgment is not received:");
+                        scanf("%d",&n2);
+                        if(n2>n)
+                        {
+                            printf(" check once frame is not there :");
+                     
+                        }
+                        else
+                        {
+                            printf("the frame %d is sent again ",n2);
+                        }
+                        i++;
+                        
+                    }
+                    }
+                else
+                {
+                    printf("please re transmitted the frame ");
+                }
+    }
+int main(int argc, char** argv) {
+    int ch;
+    printf("1.stop and wait\t 2.go back n\t3.selective repeat\n");
+    while(1){
+    printf("\nChoose a protocol\n");
+    scanf("%d",&ch);
+    switch(ch){
+        case 1:
+            stopandwait();
+            break;
+        case 2:
+            goback();
+            break;
+        case 3:
+            selectiverepeat();
+            break;
+        default: return 0;
+    }
+    }
+    return (EXIT_SUCCESS);
+}
+
+

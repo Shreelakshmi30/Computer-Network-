@@ -1,0 +1,84 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+#define m strlen(b)
+int i,j;
+char a[50],b[50],c[50];
+int p,q,r;
+void xor(int n){
+    for(j=1;j<n;j++){
+        c[j]=((c[j]==b[j])?'0':'1');/*xor condition is implemented in 2 bits*/
+    }
+    
+}
+void crc(int n){
+    for(i=0;i<m;i++){
+        c[i]=a[i];
+    }
+    do{
+        if(c[0]=='1')
+            xor(n);
+        for(j=0;j<m-1;j++)/* the crc of the bits is done*/
+            c[j]=c[j+1];
+       c[j]=a[i++];    
+    }while(i<=n+m-1);  
+}
+void sender(){
+   int n=strlen(a);
+   for(int i=n;i<n+m-1;i++){
+       a[i]='0';/*redundancy bits are added 
+                 as per the polynomial selected */
+   }
+   printf("Data after added redundancy bits: %s\n",a);
+   crc(n);/*reminder is obtained after the crc*/
+   printf("\nReminder is: %s",c);
+   for(j=n;j<m+n-1;j++)
+       a[j]=c[j-n];   /*remainder is appended at the end of the data*/
+   printf("\nTransmitting Data :%s\n",a);
+}
+
+int main(int argc, char** argv) {
+    int f;
+    printf("Enter the binary data :\n");
+    scanf("%s",a);
+    printf("1.CRC-8\n2.CRC-10\n3.CRC-16\n4.CRC-32\nSelect polynomial from Above\n");
+    scanf("%d",&f);
+    switch(f){                   /*switch case to select option for generator*/
+        case 1:strcpy(b,"11101");
+        break;
+        case 2:strcpy(b,"11000110101");
+        break;
+        case 3:strcpy(b,"10001000000100001");
+        break;
+        case 4:strcpy(b,"100000100110000010001110110110111");
+        break;
+        default:printf("wrong choice");
+    }
+    printf("Generating polynomial is %s:\n",b);/*generator polynomial is created*/
+    sender();/*function call for the transmitting data*/
+    receiver();/*function call for the receiving data*/
+    return (EXIT_SUCCESS);
+}
+int receiver(){
+    int d[30];
+    printf("\n\nData transmitted to Receiver.....\nEnter received data\n");
+    scanf("%s",a);
+    int n=strlen(a);
+    crc(n);                  /*transmitted and received are verified if they are same or not*/
+    printf("%s",c);
+    printf("\nError detection process\n");
+    for(j=0;(j<m-1);j++)
+        if(c[j]=='1'){
+            printf("Error detected");
+            return 0;
+        }
+    printf("No Error detected");
+    return 0;
+}
+

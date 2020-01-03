@@ -1,0 +1,70 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+/*
+ * 
+ */
+int main(int argc, char** argv) {
+    int i,j,row,column,count,array[10][10];
+    printf("Enter number of rows ");
+    scanf("%d",&row);
+     printf("Enter number of columns ");
+    scanf("%d",&column);
+    printf("Enter the bit stream ");
+    for(j=0;j<row;j++)
+    {
+        for(i=0;i<column;i++)
+        {
+            scanf("%d",&array[j][i]);
+        }
+    }
+    printf("The initial bit stream is \n");
+      for(j=0;j<row;j++)
+    {
+        for(i=0;i<column;i++)
+        {
+            printf("%d",array[j][i]);
+        }printf("\n");
+    }
+    printf("output bit stream is :\n");
+    count=0;
+    for(j=0;j<row;j++)
+    {
+        for(i=0;i<column;i++)
+        {
+            if(array[j][i]==1)
+                count++;
+        }
+   if(count%2==0)
+       array[j][column]=0;
+   else
+       array[j][column]=1;
+               count=0;
+    }
+    for(i=0;i<=column;i++)
+    {
+         for(j=0;j<row;j++)
+        {
+            if(array[j][i]==1)
+                count++;
+        }
+   if(count%2==0)
+       array[row][i]=0;
+   else
+       array[row][i]=1;
+               count=0;
+    }
+    
+    for(j=0;j<=row;j++)
+    {
+        for(i=0;i<=column;i++)
+        {
+            printf("%d",array[j][i]);
+            
+        }
+        printf("\n");
+    }
+    return (EXIT_SUCCESS);
+}
+

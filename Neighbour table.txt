@@ -1,0 +1,47 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+int main(){
+    int i,j,x[100],y[100],r;
+    int dist,a[100][100];
+    for(i=1;i<=10;i++){
+        x[i]=rand()%50+1;
+        y[i]=rand()%10+1;
+        printf("\n X coordinate of node %d: %d\t",i,x[i]);
+        printf("Y coordinate of node %d: %d\n",i,y[i]);       
+    }
+    printf("\n");
+    for (i=1;i<=10;i++){
+        for(j=1;j<=10;j++)
+        {
+            if(i!=j)
+            {
+                dist=sqrt((x[j]-x[i])*(x[j]-x[i])+(y[j]-y[i])*(y[j]-y[i]));
+                printf("%d\t",dist);
+            }
+        }
+        printf("\n");
+    }
+    printf("\nEnter the Range to qualify as a neighbour");
+    scanf("%d",&r);
+    for(i=1;i<=10;i++){
+        printf("\n Neighbour of the required node %d are: \t",(i+1));
+    for(j=1;j<=10;j++){
+        if(i!=j){
+            dist=sqrt((x[j]-x[i])*(x[j]-x[i])+(y[j]-y[i])*(y[j]-y[i]));
+        }
+        if(dist<r){
+            printf("\t %d",(j+1));
+        }}
+        printf("\n");
+        }
+}
+        
+ 
+
